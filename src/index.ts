@@ -67,12 +67,16 @@ server.get('/orders/:id/order-total', async (request, reply) => {
 
     if (order) {
         const total = order.products.reduce(
-            (acc, product) => acc + product.price * product.count,
+            (acc, product) =>
+                acc +
+                product.price *
+                    100 /* Don't use float in calculations. */ *
+                    product.count,
             0,
         )
 
         return reply.status(201).send({
-            total,
+            total: total / 100,
         })
     }
 
