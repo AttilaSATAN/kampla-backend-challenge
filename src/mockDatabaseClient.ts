@@ -85,3 +85,10 @@ export const deleteUser = (id: string): boolean => {
 
 export const getOrdersByUserId = (userId: string): Order[] =>
     database.orders.filter(order => order.userId === userId)
+
+export const getUserOrdersAfterDate = (userId: string, date: Date): Order[] =>
+    database.orders.filter(
+        order =>
+            order.userId === userId &&
+            order.createdAt.getTime() > date.getTime(),
+    )
